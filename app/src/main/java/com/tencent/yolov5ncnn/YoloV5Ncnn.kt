@@ -11,29 +11,27 @@
 // under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the
 // specific language governing permissions and limitations under the License.
+package com.tencent.yolov5ncnn
 
-package com.tencent.yolov5ncnn;
+import android.content.res.AssetManager
+import android.graphics.Bitmap
 
-import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-
-public class YoloV5Ncnn
-{
-    public native boolean Init(AssetManager mgr);
-
-    public class Obj
-    {
-        public float x;
-        public float y;
-        public float w;
-        public float h;
-        public String label;
-        public float prob;
+class YoloV5Ncnn {
+    external fun Init(mgr: AssetManager): Boolean
+    inner class Obj {
+        var x = 0f
+        var y = 0f
+        var w = 0f
+        var h = 0f
+        var label: String? = null
+        var prob = 0f
     }
 
-    public native Obj[] Detect(Bitmap bitmap, boolean use_gpu);
+    external fun Detect(bitmap: Bitmap, use_gpu: Boolean): Array<Obj>
 
-    static {
-        System.loadLibrary("yolov5ncnn");
+    companion object {
+        init {
+            System.loadLibrary("yolov5ncnn")
+        }
     }
 }
